@@ -12,6 +12,7 @@ val depth = 5
 var emptyValue = "| _ |"
 var grid = Array (depth){Array(depth){emptyValue}}
 var iter = 0
+var lettersBurnt = arrayListOf<String>()
 fun main(){
 
     chosenWord = chooseWord()
@@ -63,17 +64,20 @@ fun userGuess(userWord: String, iter: Int){
     for (i in 0 until depth){
 
         if (validateLetterPosition(userWord[i], i)) {
+            //exists in correct position
             grid[iter][i] = "| $textGreen${userWord[i]}$textReset |"
         }else if (validateLetterExistence(userWord[i])) {
-
+            // exists in incorrect position
             grid[iter][i] = "| $textYellow${userWord[i]}$textReset |"
         }else {
-
+            // does not exist
             grid[iter][i] = "| $textRed${userWord[i]}$textReset |"
+            lettersBurnt.add(userWord[i].toString())
         }
 
     }
     printGrid()
+    println("BURNT LETTERS: $lettersBurnt")
 }
 
 fun validateLetterPosition(letter: Char, iter: Int): Boolean {
