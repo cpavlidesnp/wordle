@@ -16,7 +16,7 @@ var wrongPositionLetters = arrayListOf<Char>()
 fun main(){
 
     chosenWord = chooseWord()
-    println(chosenWord)
+    //println(chosenWord)
     printGrid()
 
     while(isGameActive) {
@@ -54,7 +54,7 @@ fun main(){
 fun newGame(): Boolean{
     println("Would you like to play again? y/n")
     val playAgainUser = readLine()?:""
-    return if (playAgainUser=="y" || playAgainUser=="yes") {
+    return if (playAgainUser.uppercase()=="Y" || playAgainUser.uppercase()=="YES") {
         grid = Array(depth) { Array(depth) { emptyValue } }
         burntLetters = hashSetOf()
         emptyLetterArrays()
