@@ -16,7 +16,6 @@ var wrongPositionLetters = arrayListOf<Char>()
 fun main(){
 
     chosenWord = chooseWord()
-    //println(chosenWord)
     printGrid()
 
     while(isGameActive) {
@@ -147,7 +146,5 @@ fun checkWinner(userWord : String): Boolean {
 }
 
 fun validateUserInput(userInput: String): Boolean {
-    return (userInput.length==depth)
-    //&& allWords.contains(userInput)
-    //COMMENTED FOR DEBUGGING
+    return (userInput.length==depth && allWords.contains(userInput))
 }
