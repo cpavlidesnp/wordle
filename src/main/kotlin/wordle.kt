@@ -22,11 +22,12 @@ fun main(){
 
 
         println("Type in a 5 letter word")
-        val userInput = readLine() ?: ""
+        val userInputInit = readLine() ?: ""
+        val userInput = userInputInit.uppercase()
 
         if (validateUserInput(userInput)) {
 
-            userGuess(userInput.uppercase(), iter)
+            userGuess(userInput, iter)
             iter++
 
             if (checkWinner(userInput)) {
