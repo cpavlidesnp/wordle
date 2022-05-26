@@ -3,6 +3,7 @@ const val textYellow = "\u001b[33m"
 const val textRed = "\u001b[31m"
 const val textReset = "\u001b[0m"
 
+
 val keyb1 = arrayListOf('Q','W','E','R','T','Y','U','I','O','P')
 val keyb2 = arrayListOf('A','S','D','F','G','H','J','K','L')
 val keyb3 = arrayListOf('Z','X','C','V','B','N','M')
@@ -17,6 +18,10 @@ var iter = 0
 var burntLetters = hashSetOf<Char>()
 var correctPositionLetters = arrayListOf<Char>()
 var wrongPositionLetters = arrayListOf<Char>()
+
+var correctPositionLettersConst = arrayListOf<Char>()
+var wrongPositionLettersConst = arrayListOf<Char>()
+
 fun main(){
 
     chosenWord = chooseWord()
@@ -63,6 +68,7 @@ fun newGame(): Boolean{
         grid = Array(depth) { Array(depth) { emptyValue } }
         burntLetters = hashSetOf()
         emptyLetterArrays()
+        emptyConstLetterArrays()
         iter = 0
         chosenWord = chooseWord()
         println(chosenWord)
@@ -86,17 +92,44 @@ fun printGrid(){
 
 fun printKeyboard(){
     for (ch in keyb1){
-        if (ch !in burntLetters)print("|$textGreen$ch$textReset|") else print("|$textRed$ch$textReset|")
+        when (ch) {
+            in burntLetters -> print("|$textRed$ch$textReset|")
+            in correctPositionLettersConst -> {
+                print("|$textGreen$ch$textReset|")
+            }
+            in wrongPositionLettersConst -> {
+                print("|$textYellow$ch$textReset|")
+            }
+            else -> print("|$ch|")
+        }
     }
     println()
     print("  ")
     for (ch in keyb2){
-        if (ch !in burntLetters)print("|$textGreen$ch$textReset|") else print("|$textRed$ch$textReset|")
+        when (ch) {
+            in burntLetters -> print("|$textRed$ch$textReset|")
+            in correctPositionLettersConst -> {
+                print("|$textGreen$ch$textReset|")
+            }
+            in wrongPositionLettersConst -> {
+                print("|$textYellow$ch$textReset|")
+            }
+            else -> print("|$ch|")
+        }
     }
     println()
     print("    ")
     for (ch in keyb3){
-        if (ch !in burntLetters)print("|$textGreen$ch$textReset|") else print("|$textRed$ch$textReset|")
+        when (ch) {
+            in burntLetters -> print("|$textRed$ch$textReset|")
+            in correctPositionLettersConst -> {
+                print("|$textGreen$ch$textReset|")
+            }
+            in wrongPositionLettersConst -> {
+                print("|$textYellow$ch$textReset|")
+            }
+            else -> print("|$ch|")
+        }
     }
     println()
 }
@@ -114,10 +147,12 @@ fun userGuess(userWord: String, iter: Int){
             //exists in correct position
             grid[iter][i] = "| $textGreen${userWord[i]}$textReset |"
             correctPositionLetters.add(userWord[i])
+            correctPositionLettersConst.add(userWord[i])
         }else if (validateLetterExistence(userWord[i], userWord)) {
             // exists in incorrect position
             grid[iter][i] = "| $textYellow${userWord[i]}$textReset |"
             wrongPositionLetters.add(userWord[i])
+            wrongPositionLettersConst.add(userWord[i])
         }else {
             // does not exist
             grid[iter][i] = "| $textRed${userWord[i]}$textReset |"
@@ -135,6 +170,10 @@ fun emptyLetterArrays(){
     wrongPositionLetters = arrayListOf()
 }
 
+fun emptyConstLetterArrays(){
+    correctPositionLettersConst = arrayListOf()
+    wrongPositionLettersConst = arrayListOf()
+}
 fun validateLetterPosition(letter: Char, iter: Int): Boolean {
     return (chosenWord[iter] == letter)
 }
