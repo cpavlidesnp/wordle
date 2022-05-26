@@ -3,6 +3,10 @@ const val textYellow = "\u001b[33m"
 const val textRed = "\u001b[31m"
 const val textReset = "\u001b[0m"
 
+val keyb1 = arrayListOf('Q','W','E','R','T','Y','U','I','O','P')
+val keyb2 = arrayListOf('A','S','D','F','G','H','J','K','L')
+val keyb3 = arrayListOf('Z','X','C','V','B','N','M')
+
 var isGameActive = true
 var maxAttempts: Int = 5
 var chosenWord:String = ""
@@ -17,6 +21,7 @@ fun main(){
 
     chosenWord = chooseWord()
     printGrid()
+    printKeyboard()
 
     while(isGameActive) {
 
@@ -62,6 +67,7 @@ fun newGame(): Boolean{
         chosenWord = chooseWord()
         println(chosenWord)
         printGrid()
+        printKeyboard()
         true
     }else{
         false
@@ -76,6 +82,23 @@ fun printGrid(){
         }
         println()
     }
+}
+
+fun printKeyboard(){
+    for (ch in keyb1){
+        if (ch !in burntLetters)print("|$textGreen$ch$textReset|") else print("|$textRed$ch$textReset|")
+    }
+    println()
+    print("  ")
+    for (ch in keyb2){
+        if (ch !in burntLetters)print("|$textGreen$ch$textReset|") else print("|$textRed$ch$textReset|")
+    }
+    println()
+    print("    ")
+    for (ch in keyb3){
+        if (ch !in burntLetters)print("|$textGreen$ch$textReset|") else print("|$textRed$ch$textReset|")
+    }
+    println()
 }
 
 fun chooseWord (): String{
@@ -103,7 +126,8 @@ fun userGuess(userWord: String, iter: Int){
 
     }
     printGrid()
-    println("BURNT LETTERS: $burntLetters")
+    printKeyboard()
+    //println("BURNT LETTERS: $burntLetters")
 }
 
 fun emptyLetterArrays(){
